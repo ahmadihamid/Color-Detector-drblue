@@ -1,21 +1,22 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "com.doctorblue.colordetector"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 
     buildTypes {
@@ -26,7 +27,9 @@ android {
         }
     }
     packagingOptions {
-        exclude 'META-INF/atomicfu.kotlin_module'
+        resources {
+            excludes += ['META-INF/atomicfu.kotlin_module']
+        }
     }
 
     compileOptions {
@@ -37,6 +40,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    namespace 'com.doctorblue.colordetector'
 
 }
 
@@ -61,7 +65,7 @@ dependencies {
     //Material design
     implementation 'com.google.android.material:material:1.2.1'
 
-    def room_version = "2.2.5"
+    def room_version = "2.5.2"
     def lifecycle_version = "2.2.0"
 
 

@@ -6,16 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.doctorblue.colordetector.R
 import com.doctorblue.colordetector.adapter.ColorListAdapter
 import com.doctorblue.colordetector.database.ColorViewModel
 import com.doctorblue.colordetector.dialog.ColorDetailDialog
 import com.doctorblue.colordetector.model.UserColor
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.android.synthetic.main.fragment_colors.*
 
 
 class ColorsFragment : BottomSheetDialogFragment() {
+
+    private val rv_color_list: RecyclerView = getView()!!.findViewById(R.id.rv_color);
 
     private val colorViewModel: ColorViewModel by lazy {
         ViewModelProvider(

@@ -13,14 +13,20 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import android.widget.ImageView
+import android.widget.RelativeLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.PreviewView
+import androidx.constraintlayout.solver.widgets.Guideline
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.doctorblue.colordetector.R
 import com.doctorblue.colordetector.adapter.ColorAdapter
 import com.doctorblue.colordetector.base.BaseActivity
@@ -31,7 +37,7 @@ import com.doctorblue.colordetector.fragments.ColorsFragment
 import com.doctorblue.colordetector.handler.ColorDetectHandler
 import com.doctorblue.colordetector.model.UserColor
 import com.doctorblue.colordetector.utils.timer
-import kotlinx.android.synthetic.main.activity_main.*
+import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -41,6 +47,25 @@ import java.util.concurrent.Executors
 
 
 class MainActivity : BaseActivity() {
+
+    private lateinit var rv_color: RecyclerView;
+    private lateinit var btn_pick_color: ImageView;
+    private lateinit var btn_add_list_color: ImageView;
+    private lateinit var btn_change_camera: ImageView;
+    private lateinit var btn_pick_image: ImageView;
+    private lateinit var btn_show_camera: ImageView;
+    private lateinit var btn_show_colors: ImageView;
+    private lateinit var image_view: ImageView;
+    private lateinit var camera_preview: PreviewView;
+    private lateinit var card_color: MaterialCardView;
+    private lateinit var card_color_preview: MaterialCardView;
+    private lateinit var txt_hex: TextView;
+    private lateinit var pointer: View;
+    private lateinit var guideline_top: View;
+    private lateinit var guideline_bottom1: View;
+    private lateinit var guideline_left: View;
+    private lateinit var guideline_right: View;
+    private lateinit var layout_top: RelativeLayout;
 
     companion object {
         private const val TAG = "CameraXBasic"
@@ -93,10 +118,31 @@ class MainActivity : BaseActivity() {
         )[ColorViewModel::class.java]
     }
 
-
     override fun getLayoutId(): Int = R.layout.activity_main
 
     override fun initControls(savedInstanceState: Bundle?) {
+
+        setContentView(R.layout.activity_main)
+
+        rv_color = findViewById(R.id.rv_color)
+        btn_pick_color = findViewById(R.id.btn_pick_color)
+        btn_add_list_color = findViewById(R.id.btn_add_list_color)
+        btn_change_camera = findViewById(R.id.btn_change_camera)
+        btn_pick_image = findViewById(R.id.btn_pick_image)
+        btn_show_camera = findViewById(R.id.btn_show_camera)
+        btn_show_colors = findViewById(R.id.btn_show_colors)
+        image_view = findViewById(R.id.image_view)
+        camera_preview = findViewById(R.id.camera_preview)
+        card_color = findViewById(R.id.card_color)
+        card_color_preview = findViewById(R.id.card_color_preview)
+        txt_hex = findViewById(R.id.txt_hex)
+        pointer = findViewById(R.id.pointer)
+        guideline_top = findViewById(R.id.guideline_top)
+        guideline_bottom1 = findViewById(R.id.guideline_bottom1)
+        guideline_left = findViewById(R.id.guideline_left)
+        guideline_right = findViewById(R.id.guideline_right)
+        layout_top = findViewById(R.id.layout_top)
+
         if (allPermissionsGranted()) {
 
             startCamera()
