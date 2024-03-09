@@ -12,7 +12,7 @@ import com.doctorblue.colordetector.model.UserColor
 import com.google.android.material.button.MaterialButton
 import kotlin.math.sqrt
 
-data class LabColor(val L: Int, val a: Int, val b: Int)
+data class LabColor(val L: Int, val A: Int, val B: Int)
 class ColorDetailDialog(
     context: Context,
     private val color: UserColor,
@@ -42,11 +42,12 @@ class ColorDetailDialog(
 
         view_color_preview.setBackgroundColor(Color.parseColor(color.hex))
         val labColor = rgbToLab(color.r.toInt(), color.g.toInt(), color.b.toInt())
+        val deltaEColor = deltaE(labColor, labColor);
 
         txt_rgb.text = ("RGB: (${color.r}, ${color.g}, ${color.b})")
         txt_hex.text = ("Hex : ${color.hex}")
-        txt_AE.text = ("ΔE: $deltaE")
-        txt_lab.text = ("LAB Color: (${labColor.L},${labColor.a},${labColor.b})")
+        txt_AE.text = ("ΔE: ${deltaEColor}")
+        txt_lab.text = ("LAB Color: (${labColor.L},${labColor.A},${labColor.B})")
 
 
         btn_cancel.setOnClickListener { dismiss() }
@@ -88,14 +89,14 @@ class ColorDetailDialog(
 
         return LabColor(roundedL, roundedA, roundedB)
     }
-    fun deltaE(labA: DoubleArray, labB: DoubleArray): Double {
-        val labA = [84.76, -0.76, 1.79]
+    fun deltaE(labA: LabColor, labB: LabColor): Double {
+        val labA = LabColor(84, -1, 1)
         val labB = rgbToLab(color.r.toInt(), color.g.toInt(), color.b.toInt())
-        val deltaL = labA[0] - labB[0]
-        val deltaA = labA[1] - labB[1]
-        val deltaB = labA[2] - labB[2]
-        val c1 = sqrt(labA[1] * labA[1] + labA[2] * labA[2])
-        val c2 = sqrt(labB[1] * labB[1] + labB[2] * labB[2])
+        val deltaL = labA.L - labB.L
+        val deltaA = labA.A - labB.A
+        val deltaB = labA.B - labB.B
+        val c1 = sqrt(labA.A.toDouble() * labA.A.toDouble() + labA.B.toDouble() * labA.B.toDouble())
+        val c2 = sqrt(labB.A.toDouble() * labB.A.toDouble() + labB.B.toDouble() * labB.B.toDouble())
         val deltaC = c1 - c2
         var deltaH = deltaA * deltaA + deltaB * deltaB - deltaC * deltaC
         deltaH = if (deltaH < 0) 0.0 else sqrt(deltaH)
