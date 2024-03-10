@@ -20,10 +20,11 @@ class ColorDetailDialog(
 ) : Dialog(context) {
 
     private lateinit var view_color_preview: View;
+    private lateinit var txt_lab: TextView;
+    private lateinit var txt_AE: TextView;
     private lateinit var txt_rgb: TextView;
     private lateinit var txt_hex: TextView;
-    private lateinit var txt_AE: TextView;
-    private lateinit var txt_lab: TextView;
+    private lateinit var txt_hsl: TextView;
     private lateinit var btn_cancel: MaterialButton;
     private lateinit var btn_remove_color: MaterialButton;
 
@@ -33,10 +34,11 @@ class ColorDetailDialog(
         setTitle(context.resources.getString(R.string.your_color))
 
         view_color_preview = findViewById(R.id.view_color_preview)
+        txt_lab = findViewById(R.id.txt_lab)
+        txt_AE = findViewById(R.id.txt_AE)
         txt_rgb = findViewById(R.id.txt_rgb)
         txt_hex = findViewById(R.id.txt_hex)
-        txt_AE = findViewById(R.id.txt_AE)
-        txt_lab = findViewById(R.id.txt_lab)
+        txt_hsl = findViewById(R.id.txt_hsl)
         btn_cancel = findViewById(R.id.btn_cancel)
         btn_remove_color = findViewById(R.id.btn_remove_color)
 
@@ -44,11 +46,11 @@ class ColorDetailDialog(
         val labColor = rgbToLab(color.r.toInt(), color.g.toInt(), color.b.toInt())
         val deltaEColor = deltaE(labColor, labColor);
 
-        txt_rgb.text = ("RGB: (${color.r}, ${color.g}, ${color.b})")
-        txt_hex.text = ("Hex : ${color.hex}")
-        txt_AE.text = ("ΔE: ${deltaEColor}")
         txt_lab.text = ("LAB Color: (${labColor.L},${labColor.A},${labColor.B})")
-
+        txt_AE.text = ("ΔE: ${Math.round(deltaEColor * 100.0) / 100.0}")
+        //txt_rgb.text = ("RGB: (${color.r}, ${color.g}, ${color.b})")
+        //txt_hex.text = ("Hex : ${color.hex}")
+        //txt_hsl.text = ("HSL: (${color.h}, ${color.s}, ${color.l})")
 
         btn_cancel.setOnClickListener { dismiss() }
 
