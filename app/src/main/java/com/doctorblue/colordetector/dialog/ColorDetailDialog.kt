@@ -22,9 +22,9 @@ class ColorDetailDialog(
     private lateinit var view_color_preview: View;
     private lateinit var txt_lab: TextView;
     private lateinit var txt_AE: TextView;
-    private lateinit var txt_rgb: TextView;
-    private lateinit var txt_hex: TextView;
-    private lateinit var txt_hsl: TextView;
+    //private lateinit var txt_rgb: TextView;
+    //private lateinit var txt_hex: TextView;
+    //private lateinit var txt_hsl: TextView;
     private lateinit var btn_cancel: MaterialButton;
     private lateinit var btn_remove_color: MaterialButton;
 
@@ -36,9 +36,9 @@ class ColorDetailDialog(
         view_color_preview = findViewById(R.id.view_color_preview)
         txt_lab = findViewById(R.id.txt_lab)
         txt_AE = findViewById(R.id.txt_AE)
-        txt_rgb = findViewById(R.id.txt_rgb)
-        txt_hex = findViewById(R.id.txt_hex)
-        txt_hsl = findViewById(R.id.txt_hsl)
+        //txt_rgb = findViewById(R.id.txt_rgb)
+        //txt_hex = findViewById(R.id.txt_hex)
+        //txt_hsl = findViewById(R.id.txt_hsl)
         btn_cancel = findViewById(R.id.btn_cancel)
         btn_remove_color = findViewById(R.id.btn_remove_color)
 
